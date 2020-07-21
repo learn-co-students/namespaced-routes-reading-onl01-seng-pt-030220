@@ -4,8 +4,19 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: %i[index show new create edit update]
+ 
+  #scope '/admin',module: 'admin' do 
+   #resources :stats ,only: [:index]
+  #end
+
+  namespace :admin do 
+   resources :stats ,only: [:index]
+  end
 
   get '/admin/stats', to: 'stats#index'
-
+  get '/admin/authors/new',to: 'authors#new'
+  get '/admin/authors/delete',to: 'authors#delete'
+  get '/admin/authors/create',to:'authors#create'
+  get '/admin/comments/moderate',to: 'comments#moderate'
   root 'posts#index'
 end
